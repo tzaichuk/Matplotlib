@@ -1,86 +1,1076 @@
-## Unit 5 | Assignment - The Power of Plots
 
-## Background
+## Tumor Response to Treatment
 
-What good is data without a good plot to tell the story?
 
-So, let's take what you've learned about Python Matplotlib and apply it to some real-world situations. For this assignment, you'll need to complete **1 of 2** Data Challenges. As always, it's your choice which you complete. _Perhaps_, choose the one most relevant to your future career.
+```python
+## Import Dependencies
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+import seaborn as sns
+```
 
-## Option 1: Pyber
 
-![Ride](Images/Ride.png)
+```python
+#open path
+clinicaltrial_df =pd.read_csv("raw_data/clinicaltrial_data.csv")
+clinicaltrial_df.head()
+```
 
-The ride sharing bonanza continues! Seeing the success of notable players like Uber and Lyft, you've decided to join a fledgling ride sharing company of your own. In your latest capacity, you'll be acting as Chief Data Strategist for the company. In this role, you'll be expected to offer data-backed guidance on new opportunities for market differentiation.
 
-You've since been given access to the company's complete recordset of rides. This contains information about every active driver and historic ride, including details like city, driver count, individual fares, and city type.
 
-Your objective is to build a [Bubble Plot](https://en.wikipedia.org/wiki/Bubble_chart) that showcases the relationship between four key variables:
 
-* Average Fare ($) Per City
-* Total Number of Rides Per City
-* Total Number of Drivers Per City
-* City Type (Urban, Suburban, Rural)
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
 
-In addition, you will be expected to produce the following three pie charts:
+    .dataframe thead th {
+        text-align: left;
+    }
 
-* % of Total Fares by City Type
-* % of Total Rides by City Type
-* % of Total Drivers by City Type
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Mouse ID</th>
+      <th>Timepoint</th>
+      <th>Tumor Volume (mm3)</th>
+      <th>Metastatic Sites</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>b128</td>
+      <td>0</td>
+      <td>45.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>f932</td>
+      <td>0</td>
+      <td>45.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>g107</td>
+      <td>0</td>
+      <td>45.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>a457</td>
+      <td>0</td>
+      <td>45.0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>c819</td>
+      <td>0</td>
+      <td>45.0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
-As final considerations:
 
-* You must use the Pandas Library and the Jupyter Notebook.
-* You must use the Matplotlib and Seaborn libraries.
-* You must include a written description of three observable trends based on the data.
-* You must use proper labeling of your plots, including aspects like: Plot Titles, Axes Labels, Legend Labels, Wedge Percentages, and Wedge Labels.
-* Remember when making your plots to consider aesthetics!
-  * You must stick to the Pyber color scheme (Gold, Light Sky Blue, and Light Coral) in producing your plot and pie charts.
-  * When making your Bubble Plot, experiment with effects like `alpha`, `edgecolor`, and `linewidths`.
-  * When making your Pie Chart, experiment with effects like `shadow`, `startangle`, and `explosion`.
-* You must include an exported markdown version of your Notebook called  `README.md` in your GitHub repository.
-* See [Example Solution](Pyber/Pyber_Example.pdf) for a reference on expected format.
 
-## Option 2: Pymaceuticals Inc
 
-![Laboratory](Images/Laboratory.jpg)
+```python
+mousedrugdata_df = pd.read_csv("raw_data/mouse_drug_data.csv")
+mousedrugdata_df.head()
+```
 
-While your data companions rushed off to jobs in finance and government, you remained adamant that science was the way for you. Staying true to your mission, you've since joined Pymaceuticals Inc., a burgeoning pharmaceutical company based out of San Diego, CA. Pymaceuticals specializes in drug-based, anti-cancer pharmaceuticals. In their most recent efforts, they've since begun screening for potential treatments to squamous cell carcinoma (SCC), a commonly occurring form of skin cancer.
 
-As their Chief Data Analyst, you've been given access to the complete data from their most recent animal study. In this study, 250 mice were treated through a variety of drug regimes over the course of 45 days. Their physiological responses were then monitored over the course of that time. Your objective is to analyze the data to show how four treatments (Capomulin, Infubinol, Ketapril, and Placebo) compare.
 
-To do this you are tasked with:
 
-* Creating a scatter plot that shows how the tumor volume changes over time for each treatment.
-* Creating a scatter plot that shows how the number of [metastatic](https://en.wikipedia.org/wiki/Metastasis) (cancer spreading) sites changes over time for each treatment.
-* Creating a scatter plot that shows the number of mice still alive through the course of treatment (Survival Rate)
-* Creating a bar graph that compares the total % tumor volume change for each drug across the full 45 days.
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
 
-As final considerations:
+    .dataframe thead th {
+        text-align: left;
+    }
 
-* You must use the Pandas Library and the Jupyter Notebook.
-* You must use the Matplotlib and Seaborn libraries.
-* You must include a written description of three observable trends based on the data.
-* You must use proper labeling of your plots, including aspects like: Plot Titles, Axes Labels, Legend Labels, X and Y Axis Limits, etc.
-* Your scatter plots must include [error bars](https://en.wikipedia.org/wiki/Error_bar). This will allow the company to account for variability between mice. You may want to look into [`pandas.DataFrame.sem`](http://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.sem.html) for ideas on how to calculate this.
-* Remember when making your plots to consider aesthetics!
-  * Your legends should not be overlaid on top of any data.
-  * Your bar graph should indicate tumor growth as red and tumor reduction as green.
-    It should also include a label with the percentage change for each bar. You may want to consult this [tutorial](http://composition.al/blog/2015/11/29/a-better-way-to-add-labels-to-bar-charts-with-matplotlib/) for relevant code snippets.
-* You must include an exported markdown version of your Notebook called  `README.md` in your GitHub repository.
-* See [Example Solution](Pymaceuticals/Pymaceuticals_Example.pdf) for a reference on expected format. (Note: For this example, you are not required to match the tables or data frames included. Your only goal is to build the scatter plots and bar graphs. Consider the tables to be potential clues, but feel free to approach this problem, however, you like.)
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Mouse ID</th>
+      <th>Drug</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>f234</td>
+      <td>Stelasyn</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>x402</td>
+      <td>Stelasyn</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>a492</td>
+      <td>Stelasyn</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>w540</td>
+      <td>Stelasyn</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>v764</td>
+      <td>Stelasyn</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
-## Hints and Considerations
 
-* Be warned: These are very challenging tasks. Be patient with yourself as you trudge through these problems. They will take time and there is no shame in fumbling along the way. Data visualization is equal parts exploration, equal parts resolution.
 
-* Between these two exercises, the Pymaceuticals one is significantly more challenging. So choose that one only if you feel somewhat comfortable with the material covered so far. The Pymaceuticals example _will_ require you to research a good bit on your own for hacked solutions to problems you'll experience along the way. If you end up choosing this exercise, feel encouraged to constantly refer back to Stack Overflow and the Pandas Documentation. These are needed tools in every data analyst's arsenl.
 
-* Don't get bogged down in small details. Always focus on the big picture. If you can't figure out how to get a label to show up correctly, come back to it. Focus on getting the core skeleton of your notebook complete. You can always re-visit old problems.
+```python
+#combine dfs on mouseID and check for data cleaninless
+combined_df = pd.merge(clinicaltrial_df, mousedrugdata_df, on="Mouse ID")
+tumor_response_table_1 = combined_df
+tumor_response_table_1.head()
+```
 
-* Remember: There are many ways to skin a cat, and similarly there are many ways to approach a data problem. The key throughout, however, is to break up your task into micro tasks. Try answering questions like: "How does my Data Frame need to be structured for me to have the right X and Y axis?" "How do I build a basic scatter plot?" "How do I add a label to that scatter plot?" "Where would the labels for that scatter plot come from?". Again! Don't let the magnitude of a programming task scare you off. Ultimately, every programming problem boils down to a handful of smaller, bite-sized tasks.
 
-* Get help when you need it! There is never any shame in asking. But as always, ask a _specific_ question. You'll never get a great answer to: "I'm lost." Good luck!
 
-## Copyright
 
-Coding Boot Camp (C) 2016. All Rights Reserved.
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Mouse ID</th>
+      <th>Timepoint</th>
+      <th>Tumor Volume (mm3)</th>
+      <th>Metastatic Sites</th>
+      <th>Drug</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>b128</td>
+      <td>0</td>
+      <td>45.000000</td>
+      <td>0</td>
+      <td>Capomulin</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>b128</td>
+      <td>5</td>
+      <td>45.651331</td>
+      <td>0</td>
+      <td>Capomulin</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>b128</td>
+      <td>10</td>
+      <td>43.270852</td>
+      <td>0</td>
+      <td>Capomulin</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>b128</td>
+      <td>15</td>
+      <td>43.784893</td>
+      <td>0</td>
+      <td>Capomulin</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>b128</td>
+      <td>20</td>
+      <td>42.731552</td>
+      <td>0</td>
+      <td>Capomulin</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+# Extract "Mouse ID", "Timepoint", "Tumor Volume (mm3)", "Metastatic Sites", "Drug"
+tumor_volume_changes_df=combined_df.loc[:,["Drug", "Timepoint","Tumor Volume (mm3)"]]
+```
+
+
+```python
+tumor_response_table_2 = tumor_volume_changes_df.groupby(['Drug', 'Timepoint']).mean()
+tumor_response_table_2.head()
+```
+
+
+
+
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>Tumor Volume (mm3)</th>
+    </tr>
+    <tr>
+      <th>Drug</th>
+      <th>Timepoint</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="5" valign="top">Capomulin</th>
+      <th>0</th>
+      <td>45.000000</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>44.266086</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>43.084291</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>42.064317</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>40.716325</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+timepoint_df = tumor_volume_changes_df.groupby(['Timepoint', 'Drug'], as_index=False).mean()
+tumor_response_table_3 = timepoint_df.pivot(index='Timepoint', columns='Drug', values='Tumor Volume (mm3)')
+tumor_response_table_3
+```
+
+
+
+
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Drug</th>
+      <th>Capomulin</th>
+      <th>Ceftamin</th>
+      <th>Infubinol</th>
+      <th>Ketapril</th>
+      <th>Naftisol</th>
+      <th>Placebo</th>
+      <th>Propriva</th>
+      <th>Ramicane</th>
+      <th>Stelasyn</th>
+      <th>Zoniferol</th>
+    </tr>
+    <tr>
+      <th>Timepoint</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>45.000000</td>
+      <td>45.000000</td>
+      <td>45.000000</td>
+      <td>45.000000</td>
+      <td>45.000000</td>
+      <td>45.000000</td>
+      <td>45.000000</td>
+      <td>45.000000</td>
+      <td>45.000000</td>
+      <td>45.000000</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>44.266086</td>
+      <td>46.503051</td>
+      <td>47.062001</td>
+      <td>47.389175</td>
+      <td>46.796098</td>
+      <td>47.125589</td>
+      <td>47.248967</td>
+      <td>43.944859</td>
+      <td>47.527452</td>
+      <td>46.851818</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>43.084291</td>
+      <td>48.285125</td>
+      <td>49.403909</td>
+      <td>49.582269</td>
+      <td>48.694210</td>
+      <td>49.423329</td>
+      <td>49.101541</td>
+      <td>42.531957</td>
+      <td>49.463844</td>
+      <td>48.689881</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>42.064317</td>
+      <td>50.094055</td>
+      <td>51.296397</td>
+      <td>52.399974</td>
+      <td>50.933018</td>
+      <td>51.359742</td>
+      <td>51.067318</td>
+      <td>41.495061</td>
+      <td>51.529409</td>
+      <td>50.779059</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>40.716325</td>
+      <td>52.157049</td>
+      <td>53.197691</td>
+      <td>54.920935</td>
+      <td>53.644087</td>
+      <td>54.364417</td>
+      <td>53.346737</td>
+      <td>40.238325</td>
+      <td>54.067395</td>
+      <td>53.170334</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>39.939528</td>
+      <td>54.287674</td>
+      <td>55.715252</td>
+      <td>57.678982</td>
+      <td>56.731968</td>
+      <td>57.482574</td>
+      <td>55.504138</td>
+      <td>38.974300</td>
+      <td>56.166123</td>
+      <td>55.432935</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>38.769339</td>
+      <td>56.769517</td>
+      <td>58.299397</td>
+      <td>60.994507</td>
+      <td>59.559509</td>
+      <td>59.809063</td>
+      <td>58.196374</td>
+      <td>38.703137</td>
+      <td>59.826738</td>
+      <td>57.713531</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>37.816839</td>
+      <td>58.827548</td>
+      <td>60.742461</td>
+      <td>63.371686</td>
+      <td>62.685087</td>
+      <td>62.420615</td>
+      <td>60.350199</td>
+      <td>37.451996</td>
+      <td>62.440699</td>
+      <td>60.089372</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>36.958001</td>
+      <td>61.467895</td>
+      <td>63.162824</td>
+      <td>66.068580</td>
+      <td>65.600754</td>
+      <td>65.052675</td>
+      <td>63.045537</td>
+      <td>36.574081</td>
+      <td>65.356386</td>
+      <td>62.916692</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>36.236114</td>
+      <td>64.132421</td>
+      <td>65.755562</td>
+      <td>70.662958</td>
+      <td>69.265506</td>
+      <td>68.084082</td>
+      <td>66.258529</td>
+      <td>34.955595</td>
+      <td>68.438310</td>
+      <td>65.960888</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+drugs = ['Capomulin', 'Infubinol', 'Ketapril', 'Placebo']
+x = tumor_volume_changes_df.Timepoint.unique()
+for drug in drugs:
+    y = tumor_response_table_3[drug].values
+    plt.plot(x,y,'--o', label=drug )
+plt.legend(loc='best')
+plt.ylabel('Mean Tumor Volume')
+plt.xlabel('Timepoint')
+
+plt.show()
+```
+
+
+![png](output_8_0.png)
+
+
+## Metastatic Response to Treatment
+
+
+```python
+# Extract "Mouse ID", "Timepoint", "Metastatic Sites", "Drug"
+metastatic_response_df=combined_df.loc[:,["Drug", "Timepoint","Metastatic Sites"]]
+```
+
+
+```python
+metastatic_response_table_1 = metastatic_response_df.groupby(['Drug', 'Timepoint']).count()
+metastatic_response_table_1.head()
+```
+
+
+
+
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>Metastatic Sites</th>
+    </tr>
+    <tr>
+      <th>Drug</th>
+      <th>Timepoint</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="5" valign="top">Capomulin</th>
+      <th>0</th>
+      <td>25</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>25</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>25</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>24</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>23</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+metastic_df = metastatic_response_df.groupby(['Timepoint', 'Drug'], as_index=False).count()
+metastatic_response_table_2 = metastic_df.pivot(index='Timepoint', columns='Drug', values='Metastatic Sites')
+metastatic_response_table_2
+```
+
+
+
+
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Drug</th>
+      <th>Capomulin</th>
+      <th>Ceftamin</th>
+      <th>Infubinol</th>
+      <th>Ketapril</th>
+      <th>Naftisol</th>
+      <th>Placebo</th>
+      <th>Propriva</th>
+      <th>Ramicane</th>
+      <th>Stelasyn</th>
+      <th>Zoniferol</th>
+    </tr>
+    <tr>
+      <th>Timepoint</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>25</td>
+      <td>25</td>
+      <td>25</td>
+      <td>25</td>
+      <td>25</td>
+      <td>25</td>
+      <td>26</td>
+      <td>25</td>
+      <td>26</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>25</td>
+      <td>21</td>
+      <td>25</td>
+      <td>23</td>
+      <td>23</td>
+      <td>24</td>
+      <td>25</td>
+      <td>25</td>
+      <td>25</td>
+      <td>24</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>25</td>
+      <td>20</td>
+      <td>21</td>
+      <td>22</td>
+      <td>21</td>
+      <td>24</td>
+      <td>23</td>
+      <td>24</td>
+      <td>23</td>
+      <td>22</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>24</td>
+      <td>19</td>
+      <td>21</td>
+      <td>19</td>
+      <td>21</td>
+      <td>20</td>
+      <td>17</td>
+      <td>24</td>
+      <td>23</td>
+      <td>21</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>23</td>
+      <td>18</td>
+      <td>20</td>
+      <td>19</td>
+      <td>20</td>
+      <td>19</td>
+      <td>17</td>
+      <td>23</td>
+      <td>21</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>22</td>
+      <td>18</td>
+      <td>18</td>
+      <td>19</td>
+      <td>18</td>
+      <td>17</td>
+      <td>14</td>
+      <td>23</td>
+      <td>19</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>22</td>
+      <td>16</td>
+      <td>17</td>
+      <td>18</td>
+      <td>15</td>
+      <td>15</td>
+      <td>13</td>
+      <td>23</td>
+      <td>18</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>22</td>
+      <td>14</td>
+      <td>12</td>
+      <td>17</td>
+      <td>15</td>
+      <td>14</td>
+      <td>10</td>
+      <td>21</td>
+      <td>16</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>21</td>
+      <td>14</td>
+      <td>10</td>
+      <td>15</td>
+      <td>15</td>
+      <td>12</td>
+      <td>9</td>
+      <td>20</td>
+      <td>12</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>21</td>
+      <td>13</td>
+      <td>9</td>
+      <td>11</td>
+      <td>13</td>
+      <td>11</td>
+      <td>7</td>
+      <td>20</td>
+      <td>11</td>
+      <td>14</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+drugs = ['Capomulin', 'Infubinol', 'Ketapril', 'Placebo']
+x = metastatic_response_df.Timepoint.unique()
+for drug in drugs:
+    y = metastatic_response_table_2[drug].values
+    plt.plot(x,y,'--o', label=drug )
+plt.legend(loc='best')
+plt.ylabel('# of Metastatic Sites')
+plt.xlabel('Timepoint')
+
+plt.show()
+```
+
+
+![png](output_13_0.png)
+
+
+## Survival Rates
+
+
+```python
+# Extract "Mouse ID", "Timepoint", "Metastatic Sites", "Drug"
+survival_rates_df=combined_df.loc[:,["Drug", "Timepoint","Mouse ID"]]
+```
+
+
+```python
+survival_rates_table_1 = survival_rates_df.groupby(['Drug', 'Timepoint']).count()
+survival_rates_table_1.head()
+```
+
+
+
+
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>Mouse ID</th>
+    </tr>
+    <tr>
+      <th>Drug</th>
+      <th>Timepoint</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="5" valign="top">Capomulin</th>
+      <th>0</th>
+      <td>25</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>25</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>25</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>24</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>23</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+survival_df = survival_rates_df.groupby(['Timepoint', 'Drug'], as_index=False).count()
+survival_response_table_2 = survival_df.pivot(index='Timepoint', columns='Drug', values='Mouse ID')
+survival_response_table_2
+```
+
+
+
+
+<div>
+<style>
+    .dataframe thead tr:only-child th {
+        text-align: right;
+    }
+
+    .dataframe thead th {
+        text-align: left;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Drug</th>
+      <th>Capomulin</th>
+      <th>Ceftamin</th>
+      <th>Infubinol</th>
+      <th>Ketapril</th>
+      <th>Naftisol</th>
+      <th>Placebo</th>
+      <th>Propriva</th>
+      <th>Ramicane</th>
+      <th>Stelasyn</th>
+      <th>Zoniferol</th>
+    </tr>
+    <tr>
+      <th>Timepoint</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>25</td>
+      <td>25</td>
+      <td>25</td>
+      <td>25</td>
+      <td>25</td>
+      <td>25</td>
+      <td>26</td>
+      <td>25</td>
+      <td>26</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>25</td>
+      <td>21</td>
+      <td>25</td>
+      <td>23</td>
+      <td>23</td>
+      <td>24</td>
+      <td>25</td>
+      <td>25</td>
+      <td>25</td>
+      <td>24</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>25</td>
+      <td>20</td>
+      <td>21</td>
+      <td>22</td>
+      <td>21</td>
+      <td>24</td>
+      <td>23</td>
+      <td>24</td>
+      <td>23</td>
+      <td>22</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>24</td>
+      <td>19</td>
+      <td>21</td>
+      <td>19</td>
+      <td>21</td>
+      <td>20</td>
+      <td>17</td>
+      <td>24</td>
+      <td>23</td>
+      <td>21</td>
+    </tr>
+    <tr>
+      <th>20</th>
+      <td>23</td>
+      <td>18</td>
+      <td>20</td>
+      <td>19</td>
+      <td>20</td>
+      <td>19</td>
+      <td>17</td>
+      <td>23</td>
+      <td>21</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>25</th>
+      <td>22</td>
+      <td>18</td>
+      <td>18</td>
+      <td>19</td>
+      <td>18</td>
+      <td>17</td>
+      <td>14</td>
+      <td>23</td>
+      <td>19</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <th>30</th>
+      <td>22</td>
+      <td>16</td>
+      <td>17</td>
+      <td>18</td>
+      <td>15</td>
+      <td>15</td>
+      <td>13</td>
+      <td>23</td>
+      <td>18</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>22</td>
+      <td>14</td>
+      <td>12</td>
+      <td>17</td>
+      <td>15</td>
+      <td>14</td>
+      <td>10</td>
+      <td>21</td>
+      <td>16</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>21</td>
+      <td>14</td>
+      <td>10</td>
+      <td>15</td>
+      <td>15</td>
+      <td>12</td>
+      <td>9</td>
+      <td>20</td>
+      <td>12</td>
+      <td>14</td>
+    </tr>
+    <tr>
+      <th>45</th>
+      <td>21</td>
+      <td>13</td>
+      <td>9</td>
+      <td>11</td>
+      <td>13</td>
+      <td>11</td>
+      <td>7</td>
+      <td>20</td>
+      <td>11</td>
+      <td>14</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+drugs = ['Capomulin', 'Infubinol', 'Ketapril', 'Placebo']
+x = survival_rates_df.Timepoint.unique()
+for drug in drugs:
+    y = survival_response_table_2[drug].values
+    plt.plot(x,y,'--o', label=drug )
+plt.legend(loc='best')
+plt.ylabel('Mouse Count')
+plt.xlabel('Timepoint')
+
+plt.show()
+```
+
+
+![png](output_18_0.png)
+
+
+## Three observed trends 
+#### 1. Capomulin is most effective in reducing tumor volume, however it is the least effective in reducing number of metastatic sites
+#### 2. Placebo is comparably just as effective in reducing tumor volume and number of metastatic sites as Infubinol and Ketapril
+#### 3. All methods reduce the number of metastatic sites
